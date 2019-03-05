@@ -1,0 +1,7 @@
+use this api to get the data you need: http://www.mocky.io/v2/581335f71000004204abaf83 
+
+the app needs to allow the user to create, edit or delete a contact (in a stateless mode, not permanently) 
+
+you need to display all the contacts and add basic filters for searching and sorting 
+
+please describe in a readme file how to run your application  

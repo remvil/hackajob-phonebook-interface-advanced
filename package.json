@@ -1,24 +1,31 @@
 {
-  "name": "hackajob-phonebook-interface-advanced",
-  "version": "1.0.0",
-  "description": "hackajob-phonebook-interface-advanced",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/remvil/hackajob-phonebook-interface-advanced.git"
-  },
-  "keywords": [
-    "nodejs",
-    "phonebook",
-    "hackajob"
-  ],
-  "author": "Remigio Vildacci",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/remvil/hackajob-phonebook-interface-advanced/issues"
-  },
-  "homepage": "https://github.com/remvil/hackajob-phonebook-interface-advanced#readme"
+    "name": "hackajob-phonebook-interface-advanced",
+    "version": "1.0.0",
+    "description": "hackajob-phonebook-interface-advanced",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/remvil/hackajob-phonebook-interface-advanced.git"
+    },
+    "keywords": [
+        "nodejs",
+        "phonebook",
+        "hackajob"
+    ],
+    "author": "Remigio Vildacci",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/remvil/hackajob-phonebook-interface-advanced/issues"
+    },
+    "homepage": "https://github.com/remvil/hackajob-phonebook-interface-advanced#readme",
+    "dependencies": {
+        "config": "^3.0.1",
+        "cors": "^2.8.5",
+        "express": "^4.16.4",
+        "routes": "^2.1.0",
+        "winston": "^2.4.4"
+    }
 }
