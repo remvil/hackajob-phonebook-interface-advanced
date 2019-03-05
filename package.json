@@ -24,6 +24,7 @@
     "dependencies": {
         "config": "^3.0.1",
         "cors": "^2.8.5",
+        "ejs": "^2.6.1",
         "express": "^4.16.4",
         "routes": "^2.1.0",
         "winston": "^2.4.4"

@@ -9,6 +9,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
 
+// Setup the template engine
+app.set('view engine', 'ejs');
+
 // Prevent uncaughtExceptio during fetching JSON: - reason: unable to verify the first certificate
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 
@@ -16,7 +19,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 require('./startup/logging')();
 
 // Setup API endpoint 
-// require('./startup/routes')(app);
+require('./startup/routes')(app);
 
 // Setup Error handler
 app.use(require('./startup/errors'));
