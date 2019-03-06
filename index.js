@@ -1,18 +1,24 @@
 const winston = require('winston')
 const config = require('config')
+const methodOverride = require('method-override');
 const express = require('express')
 const app = express()
-const cors = require('cors')
 const bodyParser = require('body-parser')
 var request = require('request');
-const methodOverride = require('method-override');
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cors());
+// override with the X-HTTP-Method-Override header in the request
+// app.use(methodOverride('X-HTTP-Method-Override'))
+app.use(bodyParser.urlencoded())
+app.use(methodOverride(function(req, res) {
+    if (req.body && typeof req.body === 'object' && '_method' in req.body) { // look in urlencoded POST bodies and delete it
+        var method = req.body._method
+        delete req.body._method
+        return method
+    }
+}))
+
+// app.use(bodyParser.json());
 app.use(express.static("public"));
-
-// app.use(methodOverride('_method'));
 
 
 // Setup the template engine
@@ -36,28 +42,30 @@ request(config.contacts_url, function(error, response, body) {
 
 // Setup API endpoint 
 
-// Render the ejs and display all contacts
-app.get('/', function(req, res) {
+// Render the index page and display all contacts
+app.get('/', (req, res) => {
     res.render('index', { contacts: contacts });
 });
 
-// GET
-app.get('/api/contact/:param', (req, res) => {
-    // console.log(req.params.name)
-})
-
 // POST route for adding new contact
-app.post('/api/contact', function(req, res) {
+app.post('/api/contact', (req, res) => {
     contacts.push({ name: req.body.name, phone_number: req.body.phone_number, address: req.body.address }); //after adding to the array go back to the root route
     res.redirect("/");
 });
 
-// DELETE route for removing a contact
-app.delete('/api/contact/:id', async(req, res) => {
-    console.log(req.params);
+app.put('/api/contact', (req, res) => {
+    let id = req.body.id;
+    contacts[id].name = req.body.name;
+    contacts[id].phone_number = req.body.phone_number;
+    contacts[id].address = req.body.address;
+    res.redirect("/");
+});
 
-    // var index = res.id
-    // contacts.splice(index, 1)
+
+// DELETE route for removing a contact
+app.delete('/api/contact/', (req, res) => {
+    var index = req.body.id
+    contacts.splice(index, 1)
     res.redirect("/");
 })
 

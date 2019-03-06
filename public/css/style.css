@@ -54,6 +54,13 @@ body {
     font-size: 21px;
 }
 
+@media screen and (min-width: 768px) {
+    .jumbotron {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+}
+
 
 /* Supporting marketing content */
 

@@ -3,7 +3,6 @@
 <head>
     <title> Phonebook Interface </title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
-    <!-- <link href="/styles.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <link rel="stylesheet" href="/css/style.css" />
 </head>
@@ -26,7 +25,7 @@
                     </div>
                     <div class="col-sm-3">
                         <div class='form-group'>
-                            <label>Phone Number (format: +xx xxxxx):</label><br/>
+                            <label>Phone Number (format: +xxx...):</label><br/>
                             <input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone number" type="tel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required>
                         </div>
                     </div>
@@ -70,22 +69,66 @@
                             <%= contacts[i].address %>
                         </td>
                         <td>
-                            <div class="row">
-                                <form method="PUT" action="/api/contact/" style="display: inline; float: left;">
-                                    <button class="btn btn-warning btn-sm glyphicon glyphicon-edit float-left" formmethod="DELETE" type="submit"> </button>
-                                </form>
-                                <form method="delete" action="/api/contact" style="display: inline; float: right;">
-                                    <input type="hidden" name="id" value="<%=i%>">
-                                    <button class="btn btn-danger btn-sm glyphicon glyphicon-trash float-right"> </button>
-                                </form>
-                            </div>
+                            <a id="updateBtn" class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick='showUpdate("<%=i%>", "<%=contacts[i].name%>", "<%=contacts[i].phone_number%>", "<%=contacts[i].address%>")'> </a>
+                            <form method="POST" action="/api/contact/" enctype="application/x-www-form-urlencoded" style="float: right; margin-block-end: 0px;">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="id" value="<%=i%>">
+                                <button class="btn btn-danger btn-sm glyphicon glyphicon-trash" type="submit"> </button>
+                            </form>
                         </td>
                     </tr>
                     <% } %>
             </table>
         </fieldset>
+
+        <div id="updateContact" class="collapse">
+            <legend>Edit contact #<span id="itemIndex"></span></legend>
+            <form class="form-inline" action="/api/contact" method="POST" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="_method" value="PUT">
+                <input id="editIdField" type="hidden" name="id" value="">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Name:</label><br/>
+                            <input id="editNameField" type="text" name="name" class="form-control" placeholder="Enter name" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Phone Number (format: +xxx...):</label><br/>
+                            <input id="editPhoneField" type="tel" name="phone_number" class="form-control" placeholder="Enter Phone number" type="tel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Address:</label><br/>
+                            <input id="editAddrField" type="text" name="address" class="form-control" placeholder="Enter Address">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <button class="btn btn-primary type=" submit "> Update Contact </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 
-
+<script type="text/javascript ">
+    function showUpdate(index, name, phone_number, address) {
+        if ($("#updateContact ").is(":hidden ")) {
+            $("#updateContact ").slideDown("slow ", function() {
+                // Update the fields
+                $("#itemIndex ").html(index); $("#editIdField ").val(index); $("#editNameField ").val(name); $("#editPhoneField ").val(phone_number); $("#editAddrField ").val(address);
+            });
+        } else {
+            $("#updateContact ").slideToggle("3000 ", function(){
+                $("#itemIndex ").html(" "); $("#editIdField ").val(" "); $("#editNameField ").val(" "); $("#editPhoneField ").val(" "); $("#editAddrField ").val(" ");
+            });
+        }
+    }
+</script>
+<script src="/js/jquery-3.3.1.min.js "></script>
 </html>
