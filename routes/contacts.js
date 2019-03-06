@@ -17,4 +17,7 @@ router.get('/', async(req, res) => {
     res.send(result);
 });
 
+router.post('/', function(req, res) {
+    res.render('index')
+});
 module.exports = router

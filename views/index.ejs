@@ -3,19 +3,89 @@
 <head>
     <title> Phonebook Interface </title>
     <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
-    <link href="/styles.css" rel="stylesheet">
+    <!-- <link href="/styles.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 
 <body>
     <div class="container">
-        <h2> A Simple Phonebook single page app </h2>
-        <form action="/contacts" method="POST">
-            <input type="text" name="newtask" placeholder="add new task"> <button> Add Task </button>
-            <h2> Added Task </h2>
-            <button formaction="/removetask" type="submit"> Remove </button>
-        </form>
-        <h2> Completed task </h2>
+        <div class="jumbotron">
+            <h2> A Simple Phonebook single page app </h2>
+            <p>You can add a new contact or update or delete that stored</p>
+        </div>
+        <fieldset>
+            <legend>Add new contact</legend>
+            <form class="form-inline" action="/api/contact" method="POST">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Name:</label><br/>
+                            <input type="text" name="name" class="form-control" placeholder="Enter name" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Phone Number (format: +xx xxxxx):</label><br/>
+                            <input type="tel" name="phone_number" class="form-control" placeholder="Enter Phone number" type="tel" pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <label>Address:</label><br/>
+                            <input type="text" name="address" class="form-control" placeholder="Enter Address">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class='form-group'>
+                            <button class="btn btn-primary"> Add Contact </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Contacts list</legend>
+            <table class="table">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    <th>Address</th>
+                    <th>Actions</th>
+                </tr>
+                <% for( var i = 0; i < contacts.length; i++){ %>
+                    <tr>
+                        <th scope="row">
+                            <%= i %>
+                        </th>
+                        <td>
+                            <%= contacts[i].name %>
+                        </td>
+                        <td>
+                            <%= contacts[i].phone_number %>
+                        </td>
+                        <td>
+                            <%= contacts[i].address %>
+                        </td>
+                        <td>
+                            <div class="row">
+                                <form method="PUT" action="/api/contact/" style="display: inline; float: left;">
+                                    <button class="btn btn-warning btn-sm glyphicon glyphicon-edit float-left" formmethod="DELETE" type="submit"> </button>
+                                </form>
+                                <form method="delete" action="/api/contact" style="display: inline; float: right;">
+                                    <input type="hidden" name="id" value="<%=i%>">
+                                    <button class="btn btn-danger btn-sm glyphicon glyphicon-trash float-right"> </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+            </table>
+        </fieldset>
     </div>
 </body>
+
 
 </html>

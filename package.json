@@ -26,6 +26,9 @@
         "cors": "^2.8.5",
         "ejs": "^2.6.1",
         "express": "^4.16.4",
+        "method-override": "^3.0.0",
+        "node-fetch": "^2.3.0",
+        "request": "^2.88.0",
         "routes": "^2.1.0",
         "winston": "^2.4.4"
     }
