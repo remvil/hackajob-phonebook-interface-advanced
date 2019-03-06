@@ -1,5 +1,6 @@
 {
     "contacts_url": "http://www.mocky.io/v2/581335f71000004204abaf83",
-    "jwtPrivateKey": "anUnsecureKeyThatShouldBePlacedIntoEnvironment",
-    "ListeningPort": "3000"
+    "ListeningPort": "3000",
+    "uncaughtExceptionsFilePath": "logs/uncaughtExceptions.log",
+    "logFilePath": "logs/logfile.log"
 }

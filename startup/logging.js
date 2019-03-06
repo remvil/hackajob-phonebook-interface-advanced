@@ -5,8 +5,8 @@ module.exports = function() {
     // ERROR HANDLINGS
     winston.handleExceptions(
         new winston.transports.Console({ colorize: true, prettyPrint: true }),
-        new winston.transports.File({ filename: 'logs/uncaughtExceptions.log' }));
+        new winston.transports.File({ filename: config.uncaughtExceptionsFilePath }));
 
     process.on('unhandledRejection', (ex) => { throw ex; });
-    winston.add(winston.transports.File, { filename: 'logs/logfile.log' });
+    winston.add(winston.transports.File, { filename: config.logFilePath });
 }
